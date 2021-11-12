@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_offer_fragment"
+            android:icon="@drawable/ic_offer"
+            android:title="Oferta" />
+        <item
+            android:id="@+id/nav_about_us_fragment"
+            android:icon="@drawable/ic_about_us"
+            android:title="O nas" />
+        <item
+            android:id="@+id/nav_price_list_fragment"
+            android:icon="@drawable/ic_price_list"
+            android:title="Cennik" />
+        <item
+            android:id="@+id/nav_contact_fragment"
+            android:icon="@drawable/ic_contact"
+            android:title="Kontakt" />
+    </group>
+
+    <item android:title="Użytkownik">
+        <menu>
+            <item
+                android:id="@+id/nav_login_fragment"
+                android:icon="@drawable/ic_baseline_login_24"
+                android:title="Logowanie" />
+            <item
+                android:id="@+id/nav_register_fragment"
+                android:icon="@drawable/ic_baseline_app_registration_24"
+                android:title="Rejestracja" />
+        </menu>
+    </item>
+</menu>
