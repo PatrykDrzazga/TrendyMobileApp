@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Make sure to be using androidx.appcompat.app.ActionBarDrawerToggle version.
     private ActionBarDrawerToggle drawerToggle;
+
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +45,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mtoggle.syncState();
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new OfferFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_offer_fragment);
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new SalonsFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_salons_fragment);
         }
 
+        navigationView.getMenu().findItem(R.id.nav_logout_fragment).setOnMenuItemClickListener(menuItem -> {
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(getIntent());
+            return true;
+        });
 
+        if(user!=null) {
+            navigationView.getMenu().findItem(R.id.nav_login_fragment).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_register_fragment).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_logout_fragment).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_visits_fragment).setVisible(true);
+        }
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
+            case R.id.nav_salons_fragment:
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new SalonsFragment()).commit();
+                break;
             case R.id.nav_offer_fragment:
                 getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new OfferFragment()).commit();
                 break;
@@ -58,9 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_price_list_fragment:
                 getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PriceListFragment()).commit();
-                break;
-            case R.id.nav_contact_fragment:
-                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new ContactFragment()).commit();
                 break;
             case R.id.nav_login_fragment:
                 getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new LoginFragment()).commit();
