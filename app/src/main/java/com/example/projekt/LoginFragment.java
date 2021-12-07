@@ -1,5 +1,6 @@
 package com.example.projekt;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -73,12 +74,11 @@ public class LoginFragment extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    String RegisteredUserID = currentUser.getUid();
-                    Fragment fragment = new OfferFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.flContent, fragment).commit();
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
 
                 } else {
-                    Toast.makeText(getView().getContext(), "Logowanie niepowiodło się!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getView().getContext(), "Logowanie nie powiodło się!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

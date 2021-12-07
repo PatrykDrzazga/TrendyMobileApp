@@ -23,6 +23,27 @@ public class Salon implements Parcelable {
         this.photo = photo;
     }
 
+    protected Salon(Parcel in) {
+        name = in.readString();
+        email = in.readString();
+        street = in.readString();
+        city = in.readString();
+        phoneNumber = in.readInt();
+        photo = in.readString();
+    }
+
+    public static final Creator<Salon> CREATOR = new Creator<Salon>() {
+        @Override
+        public Salon createFromParcel(Parcel in) {
+            return new Salon(in);
+        }
+
+        @Override
+        public Salon[] newArray(int size) {
+            return new Salon[size];
+        }
+    };
+
     public String getName() {
         return name;
     }

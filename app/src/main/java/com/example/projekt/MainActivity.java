@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_register_fragment:
                 getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new RegisterFragment()).commit();
                 break;
+            case R.id.nav_visits_fragment:
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new VisitsFragment()).commit();
+                break;
         }
         mDrawer.closeDrawer(GravityCompat.START);
         return true;
